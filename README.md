@@ -19,7 +19,7 @@ Streamlit front-end with a clean chat-like interface.
 
 Project Structure
 
-'''university-policy-assistant/
+### university-policy-assistant/
 │── policies/                # 29 PDFs
 │
 │── notebooks/               # testing & experiments
@@ -35,7 +35,7 @@ Project Structure
 │── requirements.txt
 │── README.md
 │── .gitignore 
-'''
+###
 Setup
 
 Clone the repo and install dependencies:
