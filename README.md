@@ -18,12 +18,23 @@ Provides sources with filename + page for transparency.
 Streamlit front-end with a clean chat-like interface.
 
 Project Structure
-├── app.py        # Streamlit chat interface  
-├── ingest.py     # Load PDFs, split text, create FAISS index  
-├── qa.py         # Query interface using RetrievalQA  
-├── policies/     # Folder for PDFs  
-├── db/           # Vector database (created after ingest)  
-└── .env          # Store your OPENAI_API_KEY here  
+
+university-policy-assistant/
+│── policies/                # 29 PDFs
+│
+│── notebooks/               # testing & experiments
+│   ├── 01_ingest_test.ipynb
+│
+│── src/                     # production code
+│   ├── ingest.py
+│   ├── qa.py
+│   ├── app.py
+│
+│── db/                      # persisted FAISS index (generated after ingest)
+│
+│── requirements.txt
+│── README.md
+│── .gitignore 
 
 Setup
 
@@ -37,7 +48,6 @@ Add your API key in .env:
 OPENAI_API_KEY=your_key_here
 
 
-Place PDF policies in policies/.
 
 Run ingestion (creates the FAISS DB):
 
