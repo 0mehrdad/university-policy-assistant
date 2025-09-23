@@ -31,7 +31,10 @@ if query := st.chat_input("Ask a question..."):
             source_text = "\n".join(
                 [f"- {s}" for s in sources]
             )
-            response = f"**Answer:** {answer}\n\n**Sources:**\n{source_text}"
+            if not sources:
+                response = f"**Answer:** {answer}"
+            else:
+                response = f"**Answer:** {answer}\n\n**Sources:**\n{source_text}"
 
             st.markdown(response)
 

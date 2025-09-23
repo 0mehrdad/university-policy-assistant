@@ -15,18 +15,15 @@ def main(query):
         embeddings, 
         allow_dangerous_deserialization=True
     )
-
     # Set up LLM
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
 
-    # Build QA chain
-    qa_chain = RetrievalQA.from_chain_type(
-        llm=llm,
-        retriever=vectordb.as_retriever(search_kwargs={"k": 3}),
-        return_source_documents=True
-    )
 
-    # Run query
+    qa_chain = RetrievalQA.from_chain_type(
+            llm=llm,
+            retriever=vectordb.as_retriever(search_kwargs={"k": 3}),
+            return_source_documents=True
+        )
     result = qa_chain({"query": query})
 
     
@@ -35,7 +32,7 @@ def main(query):
     for doc in result["source_documents"]:
         source = doc.metadata.get("source", "Unknown file")
         page = doc.metadata.get("page", "?")
-        sources.append(f"- {source}, page {page}")
+        sources.append(f"{source}, page {page}")
     return answer, sources
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 # Paths
-PDF_DIR = "../policies"
+PDF_DIR = "policies"
 DB_DIR = "../db"
 
 def load_pdfs(pdf_dir):
