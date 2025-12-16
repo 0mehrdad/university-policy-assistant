@@ -11,7 +11,7 @@ def main(query):
     # Load FAISS index
     embeddings = OpenAIEmbeddings()
     vectordb = FAISS.load_local(
-        "../db", 
+        "db", 
         embeddings, 
         allow_dangerous_deserialization=True
     )
