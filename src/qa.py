@@ -1,4 +1,4 @@
-import sys
+import os
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
@@ -6,34 +6,34 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def main(query):
+DB_PATH = os.getenv("DB_PATH", "db")
 
-    # Load FAISS index
-    embeddings = OpenAIEmbeddings()
-    vectordb = FAISS.load_local(
-        "db", 
-        embeddings, 
-        allow_dangerous_deserialization=True
-    )
-    # Set up LLM
-    llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+# Load once at startup
+embeddings = OpenAIEmbeddings()
+vectordb = FAISS.load_local(
+    DB_PATH,
+    embeddings,
+    allow_dangerous_deserialization=True
+)
 
+llm = ChatOpenAI(
+    model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+    temperature=0
+)
 
-    qa_chain = RetrievalQA.from_chain_type(
-            llm=llm,
-            retriever=vectordb.as_retriever(search_kwargs={"k": 3}),
-            return_source_documents=True
-        )
+qa_chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    retriever=vectordb.as_retriever(search_kwargs={"k": 3}),
+    return_source_documents=True
+)
+
+def get_answer(query: str):
     result = qa_chain({"query": query})
 
-    
     answer = result["result"]
-    sources = []
-    for doc in result["source_documents"]:
-        source = doc.metadata.get("source", "Unknown file")
-        page = doc.metadata.get("page", "?")
-        sources.append(f"{source}, page {page}")
-    return answer, sources
+    sources = [
+        f"{doc.metadata.get('source', 'Unknown')}, page {doc.metadata.get('page', '?')}"
+        for doc in result["source_documents"]
+    ]
 
-if __name__ == "__main__":
-    main()
+    return answer, sources
