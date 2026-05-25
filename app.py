@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import os
 
-API_URL = 'http://University-chat-bot-env-1.eba-znhr7bta.us-east-1.elasticbeanstalk.com/ask'
+API_URL = "http://localhost:8000/ask"
 
 st.set_page_config(page_title="Policy Assistant", page_icon="📚")
 st.title("📚 University Policy Assistant")

@@ -31,9 +31,11 @@ def get_answer(query: str):
     result = qa_chain({"query": query})
 
     answer = result["result"]
-    sources = [
-        f"{doc.metadata.get('source', 'Unknown')}, page {doc.metadata.get('page', '?')}"
-        for doc in result["source_documents"]
-    ]
+    cleaned_sources = []
+    for doc in result["source_documents"]:
+        cleaned_sources.append({
+            "source": doc.metadata.get("source"),
+            "page": doc.metadata.get("page")
+        })
 
-    return answer, sources
+    return answer, cleaned_sources
