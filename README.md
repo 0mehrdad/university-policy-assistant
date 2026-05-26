@@ -114,5 +114,20 @@ The assistant will answer and cite the exact document + page.
 
 ---
 
+## 📊 Evaluation
+
+The retrieval component was evaluated using a manually curated dataset of 38 question–answer pairs with known source documents and page numbers.
+
+The system retrieves the top 3 most relevant chunks (**Recall@3**) and is assessed based on whether the correct document and page appear among the retrieved results.
+
+| Metric | Score |
+|----------|----------|
+| Document-Level Recall@3 | 97.37% |
+| Page-Level Recall@3 | 76.32% |
+
+This evaluation demonstrates that the system reliably retrieves the correct policy document while maintaining strong page-level retrieval performance.
+
+---
+
 ## 🌍 Why This Project Matters
 This demonstrates how organisations can make policy documents and compliance handbooks more accessible. Instead of digging through PDFs, users get direct answers with **traceable references**.
